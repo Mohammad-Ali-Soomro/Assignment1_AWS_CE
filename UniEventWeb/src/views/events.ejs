@@ -1,0 +1,61 @@
+<%- include('partials/header', { title }) %>
+
+<section class="summary">
+  <div><strong>Last Sync:</strong> <%= summary.syncedAt %></div>
+  <div><strong>Total Events:</strong> <%= summary.total %></div>
+  <div><strong>Image Upload Failures:</strong> <%= summary.uploadFailures %></div>
+  <div class="actions">
+    <a class="btn" href="/events">Refresh Events</a>
+    <button id="syncBtn" class="btn btn-secondary" type="button">Run Sync API</button>
+  </div>
+</section>
+
+<% if (!events || events.length === 0) { %>
+  <section class="empty-state">
+    <h2>No events available</h2>
+    <p>Try again in a few moments.</p>
+  </section>
+<% } else { %>
+  <section class="events-grid">
+    <% events.forEach((event) => { %>
+      <article class="event-card">
+        <% if (event.signedImageUrl || event.imageUrl) { %>
+          <img src="<%= event.signedImageUrl || event.imageUrl %>" alt="Poster for <%= event.title %>" class="event-image" />
+        <% } %>
+        <div class="event-content">
+          <h2><%= event.title %></h2>
+          <p><strong>Date:</strong> <%= event.date %></p>
+          <p><strong>Venue:</strong> <%= event.venue %></p>
+          <p><%= event.description %></p>
+          <% if (event.sourceUrl) { %>
+            <p><a href="<%= event.sourceUrl %>" target="_blank" rel="noreferrer">View Source Event</a></p>
+          <% } %>
+        </div>
+      </article>
+    <% }) %>
+  </section>
+<% } %>
+
+<script>
+  const syncButton = document.getElementById('syncBtn');
+
+  syncButton?.addEventListener('click', async () => {
+    syncButton.disabled = true;
+    syncButton.textContent = 'Syncing...';
+
+    try {
+      const response = await fetch('/api/events/sync', { method: 'POST' });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.message || 'Sync failed');
+      }
+      window.location.href = '/events';
+    } catch (error) {
+      alert(`Sync failed: ${error.message}`);
+      syncButton.disabled = false;
+      syncButton.textContent = 'Run Sync API';
+    }
+  });
+</script>
+
+<%- include('partials/footer') %>

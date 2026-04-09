@@ -1,0 +1,33 @@
+{
+  "name": "unievent-phase1",
+  "version": "1.0.0",
+  "description": "UniEvent Phase 1 - Node.js + Express app with Ticketmaster ingestion and S3 image upload",
+  "main": "src/server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "check": "node -e \"require('./src/config/env')\""
+  },
+  "keywords": [
+    "nodejs",
+    "express",
+    "aws",
+    "ticketmaster",
+    "mvc"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.868.0",
+    "@aws-sdk/lib-storage": "^3.868.0",
+    "@aws-sdk/s3-request-presigner": "^3.868.0",
+    "axios": "^1.9.0",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
