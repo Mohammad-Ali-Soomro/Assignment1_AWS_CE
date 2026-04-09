@@ -6,6 +6,10 @@
 
 ---
 
+![Uploading banner.png…]()
+
+
+
 ## Executive Summary
 
 This report documents the complete implementation and deployment of the **UniEvent** web application on Amazon Web Services (AWS). The assignment required designing and deploying a scalable, highly available, and secure cloud architecture using AWS services including Virtual Private Cloud (VPC), Elastic Compute Cloud (EC2), Application Load Balancer (ALB), and Amazon S3. The solution demonstrates enterprise-grade cloud architecture principles with emphasis on network isolation, security-first design, and fault tolerance across multiple Availability Zones.
